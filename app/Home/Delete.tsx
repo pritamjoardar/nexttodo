@@ -3,9 +3,11 @@ import axios from 'axios';
 import React from 'react'
 import {MdDelete} from "react-icons/md"
 import {RiEdit2Fill} from "react-icons/ri"
+import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Delete = ({id,TaskData}:any) => {
+  const router = useRouter();
 const TaskUpdate = async(e:any)=>{
   e.preventDefault();
  toast("This func under dev....")
@@ -27,8 +29,12 @@ const TaskUpdate = async(e:any)=>{
           'content-type':'application/json; charset=utf-8'
         }
           }).then((res)=>{
+            if(res.status===200){
             toast.success(res.data.message)
             TaskData();
+            router.refresh();
+            }
+            
           }).catch((err)=>{
             toast.error("Internal server error")
           })      
