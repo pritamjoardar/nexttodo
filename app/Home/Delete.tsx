@@ -6,7 +6,7 @@ import {RiEdit2Fill} from "react-icons/ri"
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const Delete = ({id,TaskData}:any) => {
+const Delete = ({id,TaskData,e}:any) => {
   const router = useRouter();
 const TaskUpdate = async(e:any)=>{
   e.preventDefault();
@@ -33,6 +33,7 @@ const TaskUpdate = async(e:any)=>{
             toast.success(res.data.message)
             TaskData();
             router.refresh();
+            location.reload()
             }
             
           }).catch((err)=>{
