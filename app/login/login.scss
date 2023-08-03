@@ -1,0 +1,47 @@
+@import ".././components/color.scss";
+.login_con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    // border: 1px solid red;
+    height: 90dvh;
+    .login {
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: 10PX;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;    
+        a{
+            color: $primery;
+        }    
+        input{
+            width: 500px;
+            padding: 8px;
+            border: 1px solid rgba(128, 128, 128, 0.473);
+            outline-color: $primery;
+        }
+        button{
+            width: 500px;
+            border-radius: 0 0 15px 15px;
+            padding: 8px;
+            border: none;
+            outline: none;
+            background-color: $primery;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            &:hover{
+                border: 1px solid $primery;
+                background-color: white;
+                color: $primery;
+                transition: .5s;
+
+            }
+        }
+    }
+}

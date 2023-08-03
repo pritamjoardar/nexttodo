@@ -1,0 +1,30 @@
+@import "../Log/logout.scss";
+@import "../../login/login.scss";
+@import "../../Home/home.scss";
+@import "../media.scss";
+@import 'react-toastify/dist/ReactToastify.css';
+header{
+    background-color:$primery ;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    div{
+        display: flex;
+        font-size: 30px;
+    }
+    article{
+        display: flex;
+        gap: 10px;
+        a{
+            color: white;
+            padding: 10px;
+            &:hover{
+                transition: .5s;
+                background-color: white;
+                color: $primery;
+            }
+        }
+    }
+}

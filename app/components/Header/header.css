@@ -1,0 +1,1 @@
+header{background-color:#238636;height:50px;display:flex;justify-content:space-between;align-items:center;padding:5px}header article{display:flex;gap:10px}header article a{color:#fff;padding:10px}header article a:hover{transition:.5s;background-color:#fff;color:#238636}

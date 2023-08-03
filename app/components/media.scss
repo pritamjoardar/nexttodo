@@ -1,0 +1,27 @@
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    //for login
+    .login_con {
+        .login {
+            input,
+            button {
+                width: 340px;
+            }
+        }
+    }
+    //for home
+    .login_con{
+        .todo {
+            form {
+            button,input,textarea{
+                width: 340px;
+            }
+            }
+        }
+    }
+    .servercon{
+        .con{
+            min-width: 340px;
+        }
+    }
+    
+}
