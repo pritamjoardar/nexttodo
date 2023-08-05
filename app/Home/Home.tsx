@@ -71,10 +71,12 @@ const TaskUpdate = async(e:any)=>{
           }
             }).then(async(res)=>{
               if(res.status===200){
-              toast.success(res.data.message);
               TaskData();
               TaskData();
               setDelload(false) 
+              if(!delload){
+              toast.success(res.data.message);
+              }
             }
               
             }).catch((err)=>{
