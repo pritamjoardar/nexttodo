@@ -82,7 +82,7 @@ const Home = () => {
               TaskData();
               setDelload(false);
               if(!delload){
-              toast.success(res.data.message);
+              toast.success(`${res.data.message}(${id})`);
               }
             }
               
@@ -149,7 +149,7 @@ const Home = () => {
               // setUpdate(false)
             }else if(err.response.status===401){
               toast.warn(err.response.data.message);
-              setUpdate(false)
+              setUpdate(false);
             }
             console.log(err);
           })
