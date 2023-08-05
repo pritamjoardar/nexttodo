@@ -11,6 +11,9 @@ const Home = () => {
   const [load,setLoad] = useState<boolean>(false);
   const [delload,setDelload] = useState<boolean>(false);
   const [fetchTask,setfetchTask] = useState<boolean>(false);
+  const [update,setUpdate] = useState<boolean>(false);
+  const[ID,setID] = useState<any>();
+
 
 
  const[title,setTitle] = useState<string>();
@@ -44,14 +47,19 @@ const Home = () => {
     }   
       }
 
-//for update
-const TaskUpdate = async(e:any)=>{
-  e.preventDefault();
- toast("This func under dev....")
+
+
+  const Delete = ({id,desc,title}:any) => {
+ //for update
+ const TaskUpdate = async(e:any)=>{
+  setID(id);
+  setTitle(title);
+  setDesc(desc);
+  setUpdate(true);
+//  toast("This func under de....")
 }
-//for task delete
-  const Delete = ({id}:any) => {
- 
+
+//for delete
     const TaskDelete =async (e:any)=>{
       e.preventDefault();
       if(!id){
@@ -107,14 +115,45 @@ const TaskUpdate = async(e:any)=>{
           <h2 style={{color:"#238636",fontSize:"18px",fontWeight:"bold"}}>{title}</h2>
           <p style={{color:"black"}}>{desc}</p>
         </div>
-          <Delete id={id}/>
+          <Delete id={id} desc={desc} title={title}/>
       </div>
       </div>
       
       </>
     )
   }
+  //update handler
+  const UpdateHandler =async(e:any)=>{
+    e.preventDefault();
+    try {
+      await axios.put(`/api/task/${ID}`,{title,desc},{
+        headers: {
+          'Access-Control-Allow-Origin' : '*',
+          'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          'content-type':'application/json; charset=utf-8'
+        }
+          }).then((res)=>{
+            setTitle("");
+            setDesc("");
+            if(res.status===200){
+              toast.success(res.data.success);
+              setUpdate(false)
+            }
+            TaskData();
+          }).catch((err)=>{
+            if(err.response.status===400){
+              toast.warn(err.response.data.message);
+              // setUpdate(false)
+            }
+            console.log(err);
+          })
+    } catch (error) {
+      console.log(error);
+      setUpdate(false)
 
+    }
+   
+  }
 //for add button
   const SubmitHandler =async(e:any)=>{ 
     e.preventDefault();    
@@ -163,7 +202,7 @@ const TaskUpdate = async(e:any)=>{
       <form>
         <input value={title} style={{fontSize:'20px'}} type="text" onChange={(e)=>setTitle(e.target.value)} name="title" placeholder='Enter your Task title' id="" />
         <textarea value={desc} name="desc" onChange={(e)=>setDesc(e.target.value)} placeholder='Description' id="" ></textarea>
-        <button onClick={SubmitHandler}>{load?"Adding...":"Add Task"}</button>
+        <button onClick={update?UpdateHandler:SubmitHandler}>{load?"Adding...":update?"Update Data":"Add Task"}</button>
       </form>
     </div>   
     <p style={{color:"blue"}}>{delload || fetchTask?<Spiner/>:""}</p>

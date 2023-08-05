@@ -18,6 +18,16 @@ const UserTask =async(req,res)=>{
       return ErrorData(res,200,"Task Deleted");
       }
       
+    }else if(req.method==='PUT'){
+      const {title,desc} = req.body;
+      if(!title || !desc){
+        return ErrorData(res,400,"Fill the proper data");
+      }else{
+        const TaskData  = await Task.findByIdAndUpdate(TaskId,{title,desc})
+        await TaskData.save();
+        return res.status(200).json({success:"Data successfully updated"});
+      }
+     
     }else{
       return ErrorData(res,400,"This methood is not avaliable");
     }
