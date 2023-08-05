@@ -4,7 +4,7 @@ import {MdDelete} from "react-icons/md"
 import {RiEdit2Fill} from "react-icons/ri"
 import { useRouter } from 'next/navigation';
 import React, { useState,useEffect, Suspense } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, useToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spiner from '../components/spiner/spiner';
 const Home = () => {
@@ -14,6 +14,7 @@ const Home = () => {
   const [update,setUpdate] = useState<boolean>(false);
   const[ID,setID] = useState<any>();
   const[updating,setUpating] = useState<boolean>(false);
+  const [taskno,setTaskno] = useState<number>(0);
 
 
  const[title,setTitle] = useState<string>();
@@ -32,15 +33,19 @@ const Home = () => {
           'content-type':'application/json; charset=utf-8'
         }
           }).then((res)=>{
-            setTask(res.data.task);
-            setfetchTask(false);
+            if(res.status===200){
+              setTaskno(res.data.task.length)
+              setTask(res.data.task);
+              setfetchTask(false);
+            }
+            
             })
             .catch((err)=>{
               if(err.response.status===401){
-                toast.warn("Lofin frist");
+                toast.warn("You have to Login frist");
                 router.push('/login')
               }
-              console.log(err);
+              // console.log(err);
           })
     } catch (error) {
       console.log(error)
@@ -211,6 +216,10 @@ const Home = () => {
         <button onClick={update?UpdateHandler:SubmitHandler}>{load?"Adding...":update?"Update Data":"Add Task"}</button>
       </form>
     </div>   
+    <section style={{display:"flex"}}>
+    <h4>Total no of task:</h4><span style={{color:"#238636"}}>{taskno}</span>
+    </section>
+    
     <p>{delload || fetchTask || updating?<Spiner/>:""}</p>
     <section className='task_container'>        
       {

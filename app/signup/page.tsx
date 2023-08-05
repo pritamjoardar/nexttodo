@@ -59,7 +59,7 @@ const Page = () => {
                   setLoad(false);
                   toast.error(err.response.data.message);
                 }
-              console.log(err)
+              // console.log(err)
           })
       }
       
