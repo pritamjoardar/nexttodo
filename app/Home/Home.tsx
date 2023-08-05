@@ -66,7 +66,7 @@ const Home = () => {
       }else{
         const Res = confirm("Are you sure you want to delete this")
         if(!Res){
-          return null
+          return null 
         }else{
       try {
           setDelload(true)
@@ -80,7 +80,7 @@ const Home = () => {
               if(res.status===200){
               TaskData();
               TaskData();
-              setDelload(false) 
+              setDelload(false);
               if(!delload){
               toast.success(res.data.message);
               }
@@ -147,6 +147,9 @@ const Home = () => {
             if(err.response.status===400){
               toast.warn(err.response.data.message);
               // setUpdate(false)
+            }else if(err.response.status===401){
+              toast.warn(err.response.data.message);
+              setUpdate(false)
             }
             console.log(err);
           })

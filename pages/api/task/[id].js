@@ -25,7 +25,7 @@ const UserTask =async(req,res)=>{
         return ErrorData(res,400,"Fill the proper data");
       }else{
         if(!Data){
-          return ErrorData(res,400,"Data not found");
+          return ErrorData(res,401,"Data not found");
         }else{
           const TaskData  = await Task.findByIdAndUpdate(TaskId,{title,desc})
           await TaskData.save();
