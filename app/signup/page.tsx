@@ -7,7 +7,9 @@ import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const Page = () => {
+  const [show,setShow] = useState<boolean>(false)
   const [load,setLoad] = useState<boolean>(false)
   const {user,setUser} = useContext<any>(Context);
   const router = useRouter();
@@ -85,8 +87,8 @@ const Page = () => {
             <input onChange={InputHandler} placeholder='Enter your Name' type="text" name="name"  />
             <input onChange={InputHandler} placeholder='Enter your email' type="email" name="email"  />
             <input onChange={InputHandler} placeholder='Phone number' type="number" name="number"  />
-            <input onChange={InputHandler} placeholder='Enter your password' type="password" name="password"  />
-            <input onChange={InputHandler} placeholder='Enter your cpassword' type="password" name="cpassword" />
+            <input onChange={InputHandler} placeholder='Enter your password' type={"password"} name="password"  />
+            <input onChange={InputHandler} placeholder='Enter your cpassword' type={"password"} name="cpassword" />
             <button onClick={SubmitHandler}>{load?"Processing...":"Sign Up"}</button>
             <p>or</p>
             

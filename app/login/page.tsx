@@ -1,5 +1,6 @@
 "use client";
 import React ,{useContext, useState}from 'react'
+import {AiFillEye,AiFillEyeInvisible} from "react-icons/ai"
 import Link from 'next/link';
 import axios from 'axios'
 import { redirect } from 'next/navigation'
@@ -9,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Page = () => {
   const [load,setLoad] = useState<boolean>(false)
   const {user,setUser} = useContext<any>(Context);
+  const [show,setShow] = useState<boolean>(false)
   const [data,setData] = useState<any>({});
   const InputHandler =(e:any)=>{
     let name:string = e.target.name;
@@ -58,7 +60,7 @@ const Page = () => {
         <div className='login'>
             <h2>Login Page</h2>
             <input onChange={InputHandler} placeholder='Enter your Email' type="email" name="email" id="" />
-            <input onChange={InputHandler} placeholder='Enter your password' type="password" name="password" />
+            <input onChange={InputHandler} placeholder='Enter your password' type={show?"text":"password"} name="password" />
             <button onClick={SubmitHandler}>{load?"Processing...":"Login"}</button>
             <p>or</p>
             <Link href="./signup">Signup</Link>
