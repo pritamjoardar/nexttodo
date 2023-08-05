@@ -1,18 +1,21 @@
 @import "../components/color.scss";
 .login_con{
     .task_container{
-        overflow:scroll;
+        // overflow-y:scroll;
+        
         display: flex;
-        flex-direction: column;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        P{
-            margin: auto;
-            color: $primery;
-        }
+        width: 100dvw;
+        justify-content: center;
+        // flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        // box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+       
     }
     .todo{  
-
+        // background-color: white;
         >form{
+            border-radius: 18px;
         margin-top: 20px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         align-items: center;
@@ -62,15 +65,32 @@
 
 //serverComp
 .servercon{
-    margin: 10px;
+    margin: 5px;
+    
     .con{
         border: 1px solid rgba(128, 128, 128, 0.43);
-        min-width: 620px;
+        background-color: white;
+        // background-image: url("");
+        flex-wrap: wrap;
+        // min-width: 620px;
+        border-radius: 18px;
         max-width: 90dvw;
         display: flex;
         overflow: auto;
         padding: 10px;
+        align-items: center;
         justify-content: space-between;
+        transition: .5s;
+        &:hover{
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+        }
+       .details{
+        // border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        word-wrap: break-word;
+       }
         svg{
             color: $primery;
             outline: none;
@@ -83,11 +103,7 @@
                 
             }
         }
-        .details{
-            h4{
-                color: $primery;
-            }
-        }
+       
     }
     
 }
@@ -95,4 +111,7 @@
 //for icon
 .icon{
     display: flex;
+    margin-left: 10px;
+   
 }
+

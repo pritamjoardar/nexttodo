@@ -3,12 +3,15 @@ import axios from 'axios';
 import {MdDelete} from "react-icons/md"
 import {RiEdit2Fill} from "react-icons/ri"
 import { useRouter } from 'next/navigation';
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, Suspense } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Spiner from '../components/spiner/spiner';
 const Home = () => {
   const [load,setLoad] = useState<boolean>(false);
   const [delload,setDelload] = useState<boolean>(false);
+  const [fetchTask,setfetchTask] = useState<boolean>(false);
+
 
  const[title,setTitle] = useState<string>();
  const[desc,setDesc] = useState<string>();
@@ -18,6 +21,7 @@ const Home = () => {
   //for task
   const TaskData =async ()=>{
     try {
+      setfetchTask(true);
       await axios.get('/api/myTask',{
         headers: {
           'Access-Control-Allow-Origin' : '*',
@@ -26,6 +30,7 @@ const Home = () => {
         }
           }).then((res)=>{
             setTask(res.data.task);
+            setfetchTask(false);
             })
             .catch((err)=>{
               if(err.response.status===401){
@@ -74,7 +79,7 @@ const TaskUpdate = async(e:any)=>{
               
             }).catch((err)=>{
               toast.error("Internal server error")
-              setDelload(false)
+              setDelload(false);
             })      
       } catch (error) {
         console.log(error);
@@ -97,8 +102,8 @@ const TaskUpdate = async(e:any)=>{
       <div className="servercon">
       <div className="con">
         <div className='details'>
-          <h4>{title}</h4>
-          <p>{desc}</p>
+          <h2 style={{color:"#238636",fontSize:"18px",fontWeight:"bold"}}>{title}</h2>
+          <p style={{color:"black"}}>{desc}</p>
         </div>
           <Delete id={id}/>
       </div>
@@ -110,8 +115,7 @@ const TaskUpdate = async(e:any)=>{
 
 //for add button
   const SubmitHandler =async(e:any)=>{ 
-    e.preventDefault();
-    
+    e.preventDefault();    
     try {
       setLoad(true)
         await axios.post('/api/usertask',{title,desc},{
@@ -142,33 +146,32 @@ const TaskUpdate = async(e:any)=>{
               router.push('/login')
             }
             
-          })
-      
-      
+          });      
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   }
   useEffect(()=>{
     TaskData();
-  },[])
+  },[]);
   return (
     <>
-    <div className="login_con">
-    <div className='todo'>
+    <div className="login_con" style={{height:"100%"}}>
+    <div className='todo' style={{marginTop:"40px"}}>
       <form>
         <input value={title} style={{fontSize:'20px'}} type="text" onChange={(e)=>setTitle(e.target.value)} name="title" placeholder='Enter your Task title' id="" />
         <textarea value={desc} name="desc" onChange={(e)=>setDesc(e.target.value)} placeholder='Description' id="" ></textarea>
         <button onClick={SubmitHandler}>{load?"Adding...":"Add Task"}</button>
       </form>
-    </div>
-    <section className='task_container'>
-    <p>{delload?"Deleting...":""}</p>
+    </div>   
+    <p style={{color:"blue"}}>{delload || fetchTask?<Spiner/>:""}</p>
+    <section className='task_container'>        
       {
          Object.values(task).map((item:any,index:number)=>(
           <ServerComp TaskData={TaskData} key={index} title={item.title} desc={item.desc} id={item._id}/>
         ))
       }
+    
    </section>
     </div>
     <ToastContainer

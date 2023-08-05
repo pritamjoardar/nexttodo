@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect } from 'react'
 import axios from 'axios'
+import Spiner from '../components/spiner/spiner';
 import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { Context } from '../components/Log/Logout';
@@ -37,7 +38,10 @@ const Page = () => {
   },[])
   return (
     <>
-    <div>Logout.......</div>
+    <div >Logout.......</div>
+    <div style={{marginTop:"30px",display:"flex",alignItems:"center"}}>
+    Logout.......<Spiner/>
+</div>
     </>
   )
 }

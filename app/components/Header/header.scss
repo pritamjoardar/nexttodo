@@ -1,6 +1,7 @@
 @import "../Log/logout.scss";
 @import "../../login/login.scss";
 @import "../../Home/home.scss";
+@import "../../about//about.scss";
 @import "../media.scss";
 @import 'react-toastify/dist/ReactToastify.css';
 header{
@@ -10,6 +11,10 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+    position: fixed;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 100dvw;
+    z-index: 100;
     div{
         display: flex;
         font-size: 30px;
