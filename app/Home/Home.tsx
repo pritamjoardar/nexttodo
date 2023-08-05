@@ -208,7 +208,7 @@ const Home = () => {
         <button onClick={update?UpdateHandler:SubmitHandler}>{load?"Adding...":update?"Update Data":"Add Task"}</button>
       </form>
     </div>   
-    <p style={{color:"blue"}}>{delload || fetchTask || updating?<Spiner/>:""}</p>
+    <p>{delload || fetchTask || updating?<Spiner/>:""}</p>
     <section className='task_container'>        
       {
          Object.values(task).map((item:any,index:number)=>(
