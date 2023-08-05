@@ -55,7 +55,11 @@ const Page = () => {
               if(err.response.status===403){
               setLoad(false);
                 toast.error(err.response.data.message);
-              }
+              }else if(err.response.status===415){
+                  setLoad(false);
+                  toast.error(err.response.data.message);
+                }
+              console.log(err)
           })
       }
       

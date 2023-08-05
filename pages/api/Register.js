@@ -1,6 +1,7 @@
 import { ConnectDB } from "../../utils/ConnectDB"
 import { ErrorData } from "../../middleware/errorData";
 import User from "../../models/User.js"
+import isEmail from 'validator/lib/isEmail';
 import bcrypt from "bcrypt"
 import { CookieSeter, GenerateToken } from "../../utils/cookieSeter";
 const Register = async(req,res)=>{
@@ -11,11 +12,17 @@ const Register = async(req,res)=>{
         return ErrorData(res,403,"User is already exist");
     }else{
         const Hash = await bcrypt.hash(password,10);
-        const Data = new User({name,email,number,password:Hash});
-    await Data.save();
-    const token = GenerateToken(Data._id);
-    CookieSeter(res,token,true)
-    return res.status(200).json({message:`Welcome ${Data.name}`,Data});
+        const emailValidate = isEmail(email);
+        if(!emailValidate){
+            return res.status(415).json({message:"Enter a valid Email address"});
+        }else{
+            const Data = new User({name,email,number,password:Hash});
+            await Data.save();
+        const token = GenerateToken(Data._id);
+        CookieSeter(res,token,true)
+        return res.status(200).json({message:`Welcome ${Data.name}`,Data});
+        }
+        
     }
     
 }
