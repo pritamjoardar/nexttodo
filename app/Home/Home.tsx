@@ -64,11 +64,11 @@ const TaskUpdate = async(e:any)=>{
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             'content-type':'application/json; charset=utf-8'
           }
-            }).then((res)=>{
+            }).then(async(res)=>{
               if(res.status===200){
               toast.success(res.data.message);
-              TaskData();
-              TaskData();
+             await TaskData();
+              // TaskData();
               setDelload(false) 
               }
               
