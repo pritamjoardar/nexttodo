@@ -20,12 +20,18 @@ const UserTask =async(req,res)=>{
       
     }else if(req.method==='PUT'){
       const {title,desc} = req.body;
+      const Data = await Task.findById(TaskId);
       if(!title || !desc){
         return ErrorData(res,400,"Fill the proper data");
       }else{
-        const TaskData  = await Task.findByIdAndUpdate(TaskId,{title,desc})
-        await TaskData.save();
-        return res.status(200).json({success:"Data successfully updated"});
+        if(!Data){
+          return ErrorData(res,400,"Data not found");
+        }else{
+          const TaskData  = await Task.findByIdAndUpdate(TaskId,{title,desc})
+          await TaskData.save();
+          return res.status(200).json({success:"Data successfully updated"});
+        }
+       
       }
      
     }else{
