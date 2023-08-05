@@ -3,7 +3,6 @@ import axios from 'axios';
 import {MdDelete} from "react-icons/md"
 import {RiEdit2Fill} from "react-icons/ri"
 import { useRouter } from 'next/navigation';
-import Loading from "../../assect/spin.gif"
 import React, { useState,useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,11 +15,38 @@ const Home = () => {
 
   const [task,setTask] = useState<any>({});
   const router = useRouter();
+  //for task
+  const TaskData =async ()=>{
+    try {
+      await axios.get('/api/myTask',{
+        headers: {
+          'Access-Control-Allow-Origin' : '*',
+          'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          'content-type':'application/json; charset=utf-8'
+        }
+          }).then((res)=>{
+            setTask(res.data.task);
+            })
+            .catch((err)=>{
+              if(err.response.status===401){
+                toast.warn("Lofin frist");
+                router.push('/login')
+              }
+              console.log(err);
+          })
+    } catch (error) {
+      console.log(error)
+    }   
+      }
+
+//for update
+const TaskUpdate = async(e:any)=>{
+  e.preventDefault();
+ toast("This func under dev....")
+}
+//for task delete
   const Delete = ({id}:any) => {
-  const TaskUpdate = async(e:any)=>{
-    e.preventDefault();
-   toast("This func under dev....")
-  }
+ 
     const TaskDelete =async (e:any)=>{
       e.preventDefault();
       if(!id){
@@ -42,6 +68,7 @@ const Home = () => {
               if(res.status===200){
               toast.success(res.data.message);
               setDelload(false)
+              TaskData();
               TaskData();
               }
               
@@ -81,31 +108,7 @@ const Home = () => {
     )
   }
 
-
-const TaskData =async ()=>{
-try {
-  await axios.get('/api/myTask',{
-    headers: {
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      'content-type':'application/json; charset=utf-8'
-    }
-      }).then((res)=>{
-        setTask(res.data.task);
-        })
-        .catch((err)=>{
-          if(err.response.status===401){
-            toast.warn("Lofin frist");
-            router.push('/login')
-          }
-          console.log(err);
-      })
-} catch (error) {
-  console.log(error)
-}   
-  }
-
-
+//for add button
   const SubmitHandler =async(e:any)=>{ 
     e.preventDefault();
     
