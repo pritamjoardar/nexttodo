@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Page = () => {
+  const [load,setLoad] = useState<boolean>(false)
   const {user,setUser} = useContext<any>(Context);
   const router = useRouter();
   const [data,setData] = useState<any>({});
@@ -18,16 +19,23 @@ const Page = () => {
   }
   const SubmitHandler =async(e:any)=>{ 
     e.preventDefault();
+    setLoad(true);
     try {
       const {name,email,number,password,cpassword} = data ;
       if(!name || !email || !number || !password || !cpassword){
         toast.warn("Fill the Data");
+        setLoad(false);
+
       }
       else if(password!=cpassword){
         toast.warn("Password and Cpassword doesn't match");
+        setLoad(false);
+
       }
       else if(password.length<6 || cpassword.length <6){
         toast.warn("Password and cpassword must be grather then 6 character")
+        setLoad(false);
+
       }else{
         await axios.post('/api/Register',{name,email,number,password},{
         headers: {
@@ -40,17 +48,20 @@ const Page = () => {
               toast.success(res.data.message);
               setUser(res.data.Data)
               Refresh()
+              setLoad(false);
             }
           })
             .catch((err)=>{
               if(err.response.status===403){
-                toast.error(err.response.data.message)
+              setLoad(false);
+                toast.error(err.response.data.message);
               }
           })
       }
       
     } catch (error) {
       console.log(error);
+      setLoad(false);
     }
   }
   const Refresh = ()=>{
@@ -72,7 +83,7 @@ const Page = () => {
             <input onChange={InputHandler} placeholder='Phone number' type="number" name="number"  />
             <input onChange={InputHandler} placeholder='Enter your password' type="password" name="password"  />
             <input onChange={InputHandler} placeholder='Enter your cpassword' type="password" name="cpassword" />
-            <button onClick={SubmitHandler}>Sign Up</button>
+            <button onClick={SubmitHandler}>{load?"Processing...":"Sign Up"}</button>
             <p>or</p>
             
             <Link href={'/login'}>Login</Link>

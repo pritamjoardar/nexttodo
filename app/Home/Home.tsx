@@ -1,16 +1,87 @@
 "use client";
 import axios from 'axios';
+import {MdDelete} from "react-icons/md"
+import {RiEdit2Fill} from "react-icons/ri"
 import { useRouter } from 'next/navigation';
+import Loading from "../../assect/spin.gif"
 import React, { useState,useEffect } from 'react'
-import ServerComp from './ServerComp';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Home = () => {
+  const [load,setLoad] = useState<boolean>(false);
+  const [delload,setDelload] = useState<boolean>(false);
+
  const[title,setTitle] = useState<string>();
  const[desc,setDesc] = useState<string>();
 
   const [task,setTask] = useState<any>({});
   const router = useRouter();
+  const Delete = ({id}:any) => {
+  const TaskUpdate = async(e:any)=>{
+    e.preventDefault();
+   toast("This func under dev....")
+  }
+    const TaskDelete =async (e:any)=>{
+      e.preventDefault();
+      if(!id){
+        return "Id not found"
+      }else{
+        const Res = confirm("Are you sure you want to delete this")
+        if(!Res){
+          return null
+        }else{
+      try {
+          setDelload(true)
+          await axios.delete(`/api/task/${id}`,{
+          headers: {
+            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            'content-type':'application/json; charset=utf-8'
+          }
+            }).then((res)=>{
+              if(res.status===200){
+              toast.success(res.data.message);
+              setDelload(false)
+              TaskData();
+              }
+              
+            }).catch((err)=>{
+              toast.error("Internal server error")
+              setDelload(false)
+            })      
+      } catch (error) {
+        console.log(error);
+        setDelload(false);
+      }}
+    }}
+    return (
+      <>
+      <div className='icon'>
+      <div onClick={TaskDelete}><MdDelete/></div>
+      <div onClick={TaskUpdate}><RiEdit2Fill/></div>
+      </div>
+     </> 
+    )
+  }
+
+  const ServerComp = ({title,desc,id}:any) => {
+    return (
+      <>
+      <div className="servercon">
+      <div className="con">
+        <div className='details'>
+          <h4>{title}</h4>
+          <p>{desc}</p>
+        </div>
+          <Delete id={id}/>
+      </div>
+      </div>
+      
+      </>
+    )
+  }
+
+
 const TaskData =async ()=>{
 try {
   await axios.get('/api/myTask',{
@@ -39,6 +110,7 @@ try {
     e.preventDefault();
     
     try {
+      setLoad(true)
         await axios.post('/api/usertask',{title,desc},{
         headers: {
           'Access-Control-Allow-Origin' : '*',
@@ -46,18 +118,27 @@ try {
           'content-type':'application/json; charset=utf-8'
         }
           }).then((res)=>{
-            toast.success("Task Created successfull");
-            setDesc("");
-            setTitle("");
-            TaskData();
+            if(res.status===200){
+              toast.success("Task Created successfull");
+              setDesc("");
+              setTitle("");
+              setLoad(false)
+              TaskData();
+            }           
           }).catch((err)=>{
             if(err.response.status===400){
               toast.warn(err.response.data.message);
+            setLoad(false)
             }else if(err.response.status===401){
               toast.warn(err.response.data.message);
+            setLoad(false)
+              router.push('/login')
+            }else if(err.response.status===500){
+              toast.warn("You have to login frist");
+            setLoad(false)
               router.push('/login')
             }
-            // console.log(err);
+            
           })
       
       
@@ -75,10 +156,11 @@ try {
       <form>
         <input value={title} style={{fontSize:'20px'}} type="text" onChange={(e)=>setTitle(e.target.value)} name="title" placeholder='Enter your Task title' id="" />
         <textarea value={desc} name="desc" onChange={(e)=>setDesc(e.target.value)} placeholder='Description' id="" ></textarea>
-        <button onClick={SubmitHandler}>Add Task</button>
+        <button onClick={SubmitHandler}>{load?"Adding...":"Add Task"}</button>
       </form>
     </div>
     <section className='task_container'>
+    <p>{delload?"Deleting...":""}</p>
       {
          Object.values(task).map((item:any,index:number)=>(
           <ServerComp TaskData={TaskData} key={index} title={item.title} desc={item.desc} id={item._id}/>
