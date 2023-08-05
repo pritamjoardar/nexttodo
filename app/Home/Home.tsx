@@ -13,7 +13,7 @@ const Home = () => {
   const [fetchTask,setfetchTask] = useState<boolean>(false);
   const [update,setUpdate] = useState<boolean>(false);
   const[ID,setID] = useState<any>();
-
+  const[updating,setUpating] = useState<boolean>(false);
 
 
  const[title,setTitle] = useState<string>();
@@ -56,7 +56,6 @@ const Home = () => {
   setTitle(title);
   setDesc(desc);
   setUpdate(true);
-//  toast("This func under de....")
 }
 
 //for delete
@@ -126,6 +125,7 @@ const Home = () => {
   const UpdateHandler =async(e:any)=>{
     e.preventDefault();
     try {
+      setUpating(true);
       await axios.put(`/api/task/${ID}`,{title,desc},{
         headers: {
           'Access-Control-Allow-Origin' : '*',
@@ -136,8 +136,11 @@ const Home = () => {
             setTitle("");
             setDesc("");
             if(res.status===200){
+              setTitle("");
+              setDesc("");
               toast.success(res.data.success);
-              setUpdate(false)
+              setUpating(false);
+              setUpdate(false);
             }
             TaskData();
           }).catch((err)=>{
@@ -205,7 +208,7 @@ const Home = () => {
         <button onClick={update?UpdateHandler:SubmitHandler}>{load?"Adding...":update?"Update Data":"Add Task"}</button>
       </form>
     </div>   
-    <p style={{color:"blue"}}>{delload || fetchTask?<Spiner/>:""}</p>
+    <p style={{color:"blue"}}>{delload || fetchTask || updating?<Spiner/>:""}</p>
     <section className='task_container'>        
       {
          Object.values(task).map((item:any,index:number)=>(
