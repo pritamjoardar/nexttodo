@@ -1,9 +1,11 @@
 "use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Spiner from "../components/spiner/spiner";
 const Page = () => {
   const[Data,setData] = useState<any>({});
   const [load,setLoad] = useState<boolean>();
+  const [status,setStatus] = useState<number>();
   useEffect(()=>{
     const GetData = async()=>{
       setLoad(true);
@@ -17,17 +19,20 @@ const Page = () => {
             if(res.status===200){
               setData(res.data.user);
               setLoad(false)
+              setStatus(res.status);
             }
             })
             .catch((err)=>{
               if(err.response.status===401){
               setLoad(false)
               }
+              // console.log(err);
           })
       
     }
      GetData();
   },[])
+ if(status===200){
   return (
     <>
     <div className="profile">
@@ -43,6 +48,7 @@ const Page = () => {
     </div>
     </>
   )
+ }
 }
 
 export default Page
