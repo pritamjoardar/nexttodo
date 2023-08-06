@@ -116,7 +116,7 @@ const Home = () => {
       <div className="servercon">
       <div className="con">
         <div className='details'>
-          <h2 style={{color:"#238636",fontSize:"18px",fontWeight:"bold"}}>{title}</h2>
+          <h2 style={{color:"#238636",fontSize:"1.8rem",fontWeight:"bold"}}>{title}</h2>
           <p style={{color:"black"}}>{desc}</p>
         </div>
           <Delete id={id} desc={desc} title={title}/>
@@ -209,9 +209,9 @@ const Home = () => {
   return (
     <>
     <div className="login_con" style={{height:"100%"}}>
-    <div className='todo' style={{marginTop:"40px"}}>
+    <div className='todo' style={{marginTop:"4rem"}}>
       <form>
-        <input value={title} style={{fontSize:'20px'}} type="text" onChange={(e)=>setTitle(e.target.value)} name="title" placeholder='Enter your Task title' id="" />
+        <input value={title} style={{fontSize:'2rem'}} type="text" onChange={(e)=>setTitle(e.target.value)} name="title" placeholder='Enter your Task title' id="" />
         <textarea value={desc} name="desc" onChange={(e)=>setDesc(e.target.value)} placeholder='Description' id="" ></textarea>
         <button onClick={update?UpdateHandler:SubmitHandler}>{load?"Adding...":update?"Update Data":"Add Task"}</button>
       </form>

@@ -1,59 +1,67 @@
 @import "../components/color.scss";
 .login_con{
     .task_container{
+        overflow: auto;
         display: flex;
         width: 100dvw;
         justify-content: center;
-        // flex-direction: column;
+        max-height: calc(100dvh - 36.2rem);
+        border-top: 1px solid rgba(128, 128, 128, 0.473);
+        border-bottom: 1px solid rgba(128, 128, 128, 0.473);
         align-items: center;
         flex-wrap: wrap;
-        // box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-
     }
     .todo{  
         >form{
         // background-color: red;
-        border-radius: 18px;
-        margin-top: 20px;
+        border-radius: 1.8rem;
+        margin-top: 2rem;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         align-items: center;
         display: flex;
-        padding: 10px;
+        padding: 1rem;
         flex-direction: column;
         justify-content: center;
-        gap: 5px;
+        gap: .5rem;
         >input{
-            padding: 10px;
-            width: 600px;
+            padding: 1rem;
+            width: 60rem;
             outline-color: $primery;
             border: 1px solid rgba(128, 128, 128, 0.473);
             overflow-x: auto;
         }
         >textarea{
             border: 1px solid rgba(128, 128, 128, 0.473);
-            width: 600px;
-            padding: 10px;
-            height: 150px;
-            font-size: 20px;
+            width: 60rem;
+            padding: 1rem;
+            height: 15rem;
+            font-size: 2rem;
             overflow-y: auto;
             outline-color: $primery;
         }
         >button{
-            padding: 10px;
-            width: 600px;
+            padding: 1rem;
+            width: 60rem;
             background-color: $primery;
             color: white;
-            border-radius: 0 0 15px 15px;
+            border-radius: 0 0 1.5rem 1.5rem;
             border: none;
             outline: none;
-            padding: 8px;
-            font-size: 20px;
+            padding: .8rem;
+            font-size: 2rem;
             cursor: pointer;
+            box-shadow: 0 .5rem #999;
             &:hover{
-                background-color: white;
-                border: 1px solid $primery;
-                color: $primery;
+                background-color: #04aa6d;
+                // border: 1rem solid $primery;
+                // color: $primery;
+                background-color: #3e8e41;
                 transition: 1s;
+            }
+            &:active{
+                background-color: #3e8e41;
+                box-shadow: 0 .5rem #666;
+                transform: translateY(4px);
             }
         }
         }
@@ -63,7 +71,7 @@
 
 //serverComp
 .servercon{
-    margin: 5px;
+    margin: .5rem;
     
     .con{
         border: 1px solid rgba(128, 128, 128, 0.43);
@@ -71,11 +79,11 @@
         // background-image: url("");
         flex-wrap: wrap;
         // min-width: 620px;
-        border-radius: 18px;
+        border-radius: 1.8rem;
         max-width: 90dvw;
         display: flex;
         overflow: auto;
-        padding: 10px;
+        padding: 1rem;
         align-items: center;
         justify-content: space-between;
         transition: .5s;
@@ -93,7 +101,7 @@
             color: $primery;
             outline: none;
             border: none;
-            font-size: 30px;
+            font-size: 3rem;
             cursor: pointer;
             &:hover{
                 color: crimson;
@@ -109,7 +117,7 @@
 //for icon
 .icon{
     display: flex;
-    margin-left: 10px;
+    margin-left: 1rem;
    
 }
 

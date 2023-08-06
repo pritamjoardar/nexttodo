@@ -2,12 +2,9 @@
     //for login
     .login_con {
         .login {
-            span{
-                buttom: 80px;
-            }
             input,
             button {
-                width: 340px;
+                width: 34rem;
             }
         }
     }
@@ -20,14 +17,14 @@
         .todo {
             form {
             button,input,textarea{
-                width: 340px;
+                width: 34rem;
             }
             }
         }
     }
     .servercon{
         .con{
-            min-width: 340px;
+            min-width: 34;
         }
     }
     

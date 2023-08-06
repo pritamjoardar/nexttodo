@@ -39,7 +39,7 @@ const Page = () => {
   return (
     <>
     <div >Logout.......</div>
-    <div style={{marginTop:"30px",display:"flex",alignItems:"center"}}>
+    <div style={{marginTop:"3rem",display:"flex",alignItems:"center"}}>
     Logout.......<Spiner/>
 </div>
     </>
