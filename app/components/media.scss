@@ -20,8 +20,105 @@
     }
     .servercon{
         .con{
-            min-width: 34;
+            min-width: 34rem;
         }
     }
     
+}
+
+@media only screen  and (min-device-width: 334px) and (max-device-width: 374px){
+    //for login
+    .login_con {
+        .login {
+            input,
+            button {
+                width: 30rem;
+            }
+        }
+    }
+    //for home
+    .login_con{
+        .todo {
+            form {
+            button,input,textarea{
+                width: 30rem;
+            }
+            }
+        }
+    }
+    .servercon{
+        .con{
+            min-width: 32rem;
+        }
+    }
+}
+
+@media only screen  and (min-device-width: 314px)  and (max-device-width: 333px){
+    //for login
+    .login_con {
+        .login {
+            input,
+            button {
+                width: 28rem;
+            }
+        }
+    }
+    //for home
+    .login_con{
+        .todo {
+            form {
+            button,input,textarea{
+                width: 28rem;
+            }
+            }
+        }
+    }
+    .servercon{
+        .con{
+            min-width: 30rem;
+        }
+    }
+    //for profile
+    .profile_con{
+        width: 30rem;
+        .details{
+            font-size: 1.3rem;
+        flex-wrap: wrap;
+        }
+    }
+}
+
+@media only screen  and (min-device-width: 276px)   and (max-device-width: 310px){
+    //for login
+    .login_con {
+        .login {
+            input,
+            button {
+                width: 25rem;
+            }
+        }
+    }
+    //for home
+    .login_con{
+        .todo {
+            form {
+            button,input,textarea{
+                width: 25rem;
+            }
+            }
+        }
+    }
+    .servercon{
+        .con{
+            min-width: 25rem;
+        }
+    }
+    //for profile
+    .profile_con{
+        width: 25rem;
+        .details{
+            font-size: 1.3rem;
+        flex-wrap: wrap;
+        }
+    }
 }
