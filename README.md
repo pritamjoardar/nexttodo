@@ -62,6 +62,7 @@ The Technology and Tools that are use for
 * NextJs -> For Frontend
 * NodeJs -> For backend
 * MongoDB -> For DataBase
+* TypeScript -> For Avoid Bugs
 * SCSS -> For Style
 * Jsonwebtoken -> For Generate Token
 * BcryptJs -> Generate Encrypted Password
